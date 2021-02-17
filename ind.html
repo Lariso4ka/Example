@@ -1,0 +1,146 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8" />
+	<script crossorigin src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<style>
+	html, body, .Home,  .Home_,.About_{width:100%; height:auto; margin:0; font-family:sans-serif;text-align:center; overflow:hidden;min-width: 0;background-color: #F5F5F5 }
+ .Home_,.white{color:white; }
+ .About_, .lightgrey {color:lightgrey;}
+ .on{display: block}
+ .off{display: none}   
+ .Home_ img{width: 100%; height: auto;margin: 0}   
+
+ .Home_ nav{position: absolute; top:0;margin-left:3% ;}
+ nav {width: 94%;height: 100px;text-align:center;font-size: 18px; margin: auto auto;line-height: 100px; vertical-align:middle;}
+ nav li{text-transform: uppercase;display: inline-block;margin-right: 50px;white-space: nowrap; overflow: hidden;} 
+ .Home_nav {border-bottom: 1px solid white;}
+ .About_nav{border-bottom: 1px solid lightgrey;}  
+ nav ul{display: block;}  
+ nav span{display: none}
+
+.ScrollDown{width: 100%;margin-bottom: 30px;position:absolute;  bottom:0; }
+.Lbl{font-size: 15px; text-transform: uppercase;}
+.DoubleArrow{width: 25px;height:15px; ;margin-top: 25px;}
+
+.Content_{width: 75%; height: auto;  margin: 3% auto; display: flex; flex-wrap: wrap;justify-content: center; align-items:flex-start; }
+.Content_ img{width: auto; height: auto;}
+.Content{width: 450px;margin: 40px; flex-basis: 250px;  }
+h2{font-size: 45px;text-transform: uppercase;margin-top: 90px}
+p{font-size: 18px; line-height: 36px}
+.Name{font-size: 25px}
+
+@media (min-width: 321px) and (max-width: 770px)
+{ 
+      html{overflow:scroll;}
+      .on,.off{display: block;}  
+      .ScrollDown{display: none}
+      nav{width: 770px}
+      .Content_ img{width: 100%; height: auto;}
+      .Content{width: 100%;}
+}
+@media  (max-width: 320px)
+{
+      nav{width: 320px}
+      nav span{display: block;}
+      nav ul{display: none}
+      nav li{display: block; margin:0; line-height: 25px } 
+      .About_nav{display: none}
+      .Content_{width: 100%;margin: 0}
+      .Content_ img{width: 100%}
+      .Content{width: 100%;margin:0 }
+}
+</style>
+<body id="Home">
+  <script type="text/babel">
+        class ItemsList extends React.Component {
+          constructor(props) {
+             super(props);
+             this.state ={on:0}
+             this.Click = this.Click.bind(this); 
+         }
+        Click(e){
+        if(this.state.on==0) {e.target.nextElementSibling.style="display:block" ;this.state.on=1;}
+        else {e.target.nextElementSibling.style="display:none" ;this.state.on=0;}
+      }
+          render() {
+            return(
+                    <nav className={this.props.class}>
+                        <span onClick={this.Click}>Меню</span> 
+                        <ul>                     
+                            <li>Home</li><li>About me</li><li>Portfolio</li><li>Contact</li>
+                        </ul>
+                    </nav>
+            );
+          }
+        }
+
+      class Home extends React.Component {
+           
+         constructor(props) {
+             super(props);
+             this.state = {classHome:"Home_ on", classAbout:"About_ off",classLbl:"white",  label: "Scroll Down to see more"};
+             this.press = this.press.bind(this);
+         }
+         press(){
+             if(this.state.classHome==="Home_ on")
+             {
+                this.setState({classHome: "Home_ off"});
+                this.setState({classAbout: "About_ on"});
+                this.setState({classLbl: "white"});
+                this.setState({label: "Keep scroldivng, there is still more to come"});
+
+             }
+             else
+             {
+                this.setState({classHome: "Home_ on"});
+                this.setState({classAbout: "About_ off"});
+                this.setState({classLbl: "lightgrey"});
+                this.setState({label: "Scroll Down to see more"});
+             }
+         }
+         render() {
+             return (
+              <div class="Home" >
+                <div className={this.state.classHome}>
+                  <img src="Background.png" />
+                    <ItemsList class="Home_nav" />
+                </div>
+                <div  className={this.state.classAbout}>
+                  <ItemsList class="About_nav"  />
+                  <div class="Content_">
+                      <img src="Jason Wood.png"/>
+                      <div class="Content">
+                          <h2>About Me</h2>
+                          <p>
+                              Lorem ipsum dolor sit amet, consectetur adipiscing edivt, sed do eiusmod tempor incididunt ut labore et dolore magna adivqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut adivquip ex ea commodo consequat.
+                          </p>    
+                          <p>
+                              Duis aute irure dolor in reprehenderit in voluptate vedivt esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt moldivt anim id est laborum.
+                          </p>                
+                          <div class="Name">Jason Wood</div>
+                      </div>
+                  </div>                        
+                </div>
+                <div class="ScrollDown">
+                      <div  className={this.state.classLbl}>{this.state.label}</div>
+                      <img class="DoubleArrow" src="Double Arrow.png"  onClick={this.press} />
+                </div>
+              </div>
+              );
+         }
+     }
+     ReactDOM.render(
+         <Home />,
+         document.getElementById("Home")
+     )
+
+
+</script>  
+
+</body>
+</html>		
